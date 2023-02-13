@@ -10,12 +10,10 @@ const puppeteer = require("puppeteer");
   await page.type("#txt_password", "dace2003");
   const btn_ingresar = await page.waitForSelector("#btn_ingresar");
   await btn_ingresar.click();
+  await page.waitForNavigation();
+  await page.mouse.click(2, 598);
+  await page.mouse.click(100, 210, { delay: 3000 });
+  await page.mouse.click(414, 397, { delay: 3000 });
+  await page.mouse.click(518, 487, { delay: 3000 });
 
-  const textSelector = await page.waitForSelector("text/Inicio");
-
-  await textSelector.click();
-
-  /* await btn_horario.click(); */
 })();
-
-/* ext-gen339 */
