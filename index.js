@@ -11,9 +11,8 @@ const puppeteer = require("puppeteer");
   const btn_ingresar = await page.waitForSelector("#btn_ingresar");
   await btn_ingresar.click();
   await page.waitForNavigation();
-  await page.mouse.click(2, 598);
-  await page.mouse.click(100, 210, { delay: 3000 });
-  await page.mouse.click(414, 397, { delay: 3000 });
-  await page.mouse.click(518, 487, { delay: 3000 });
-
+  await page.addScriptTag({
+    content:
+      "DynamicWindow(Desktop1,'Window651_4096','/Chaira/View/Private/Academico/Estudiante/Horario.aspx','Horario','650','650');",
+  });
 })();
