@@ -38,9 +38,56 @@ module.exports = async function getHorario(data) {
         );
         const emailIns = await frameSub.evaluate(
           () => document.querySelector("#TFEmailI-inputEl").value
-        ); 
+        );
+        const celular = await frameSub.evaluate(
+          () => document.querySelector("#NFTelefonoFijo-inputEl").value
+        );
+        const nameFirst = await frameSub.evaluate(
+          () => document.querySelector("#TFPrimerNombre-inputEl").value
+        );
+        const nameSecond = await frameSub.evaluate(
+          () => document.querySelector("#TextField2-inputEl").value
+        );
+        const lastnameFirst = await frameSub.evaluate(
+          () => document.querySelector("#TFPrimerApellido-inputEl").value
+        );
+        const lastnameSecond = await frameSub.evaluate(
+          () => document.querySelector("#TextField4-inputEl").value
+        );
+        const cityProcendence = await frameSub.evaluate(
+          () => document.querySelector("#oCiudadProcedencia-inputEl").value
+        );
+        const cityNac = await frameSub.evaluate(
+          () => document.querySelector("#CCiudad-inputEl").value
+        );
+        const birthday = await frameSub.evaluate(
+          () => document.querySelector("#DFFechaNacimiento-inputEl").value
+        );
+        const blood = await frameSub.evaluate(
+          () => document.querySelector("#CBTipoSanguineo-inputEl").value
+        );
 
-        return true;
+        await instanceBrowser.close();
+
+        return {
+          tipoDocumento: typeDcm,
+          documento: dcm,
+          nombre:
+            nameFirst +
+            " " +
+            nameSecond +
+            " " +
+            lastnameFirst +
+            " " +
+            lastnameSecond,
+          correo: emailIns,
+          usuarioChaira: emailIns.split("@")[0],
+          imagen: img,
+          ciudadProcedencia: cityProcendence,
+          ciudadNacimiento: cityNac,
+          fechaNacimiento: birthday,
+          tipoSangre: blood,
+        };
       } catch (error) {
         console.log("Error -> " + error);
         if (instanceBrowser != null) {
