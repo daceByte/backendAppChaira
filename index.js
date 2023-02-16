@@ -1,18 +1,23 @@
-const puppeteer = require("puppeteer");
+const path = require("path"),
+  express = require("express"),
+  app = express(),
+  { start, apiLogin, apiHorario, apiDataUser, apiIndex } = require("./routes");
 
-(async () => {
-  const browser = await puppeteer.launch({ headless: false });
-  const page = await browser.newPage();
+app.set("view engine", "ejs");
+app.set("views", __dirname + "/views");
+app.use(express.static(__dirname + "/public"));
+app.use(express.json());
 
-  await page.goto("https://chaira.uniamazonia.edu.co/Chaira/Logon.aspx");
-  await page.setViewport({ width: 800, height: 600 });
-  await page.type("#txt_usuario", "di.cardenas");
-  await page.type("#txt_password", "dace2003");
-  const btn_ingresar = await page.waitForSelector("#btn_ingresar");
-  await btn_ingresar.click();
-  await page.waitForNavigation();
-  await page.addScriptTag({
-    content:
-      "DynamicWindow(Desktop1,'Window651_4096','/Chaira/View/Private/Academico/Estudiante/Horario.aspx','Horario','650','650');",
-  });
-})();
+app.use("/", start);
+app.use("/Api/Login", apiLogin);
+app.use("/Api", apiIndex);
+app.use("/Api/Horario", apiHorario);
+app.use("/Api/Data", apiDataUser);
+
+app.use(function (req, res) {
+  res.render("error");
+});
+
+app.listen(3000, function () {
+  console.log("AppWeb escuchando en el puerto 3000!");
+});
