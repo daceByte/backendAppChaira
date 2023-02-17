@@ -6,9 +6,9 @@ router.post("/", async function (req, res, next) {
   const { user, pass } = req.body;
   if (user != undefined && pass != undefined) {
     const data = await DataUser({ user: user, pass: pass });
-    res.status(200).send({ response: "success", menssage: data });
+    res.status(200).json({ response: "success", menssage: data });
   } else {
-    res.status(200).send({ response: "error", menssage: "Falta parametros." });
+    res.status(200).json({ response: "error", menssage: "Falta parametros." });
   }
 });
 
