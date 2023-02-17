@@ -30,12 +30,19 @@ module.exports = async function setAdiciones(data) {
           () => document.querySelector("#ext-gen114").innerHTML
         );
 
-        await instanceBrowser.close();
+        const action = await frame.evaluate(() => {
+          var x = document.querySelectorAll(".x-grid-group");
+          for (let xE of x) {
+            xE.classList.remove("x-grid-group-collapsed");
+          }
+        });
+
+        //await instanceBrowser.close();
         return texto;
       } catch (error) {
         console.log("Error -> " + error);
         if (instanceBrowser != null) {
-          await instanceBrowser.close();
+          //await instanceBrowser.close();
         }
         return false;
       }
@@ -43,7 +50,7 @@ module.exports = async function setAdiciones(data) {
   }
 
   if (instanceBrowser != null) {
-    await instanceBrowser.close();
+    //await instanceBrowser.close();
   }
   return false;
 };
