@@ -31,7 +31,17 @@ module.exports = async function getView(page, idPage) {
         return false;
       }
       return true;
-
+    case 3: //Adiciones/Cancelaciones
+      try {
+        await page.addScriptTag({
+          content:
+            "DynamicWindow(Desktop1,'Window3886_512','/Chaira/View/Private/Academico/Estudiante/Adiccion_CancelacionEstu.aspx','Adición/Cancelación','650','650');",
+        });
+      } catch (error) {
+        console.log("Error -> " + error);
+        return false;
+      }
+      return true;
     default:
       return false;
   }
