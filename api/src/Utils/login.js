@@ -20,7 +20,7 @@ module.exports = async function sendLogin(browser, data) {
   } catch (error) {
     console.log("Error -> " + error);
     if (browser != null) {
-      await instanceBrowser.close();
+      await browser.close();
     }
     return false;
   }

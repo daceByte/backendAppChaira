@@ -12,7 +12,7 @@ module.exports = async function getHorario(data) {
     instanceBrowser = await browser.startBrowser();
 
   if (instanceBrowser == null) {
-    return false;
+    return {error: 503, content: "El titiritero no esta disponible, intente de nuevo..."};
   }
 
   let page = await login(instanceBrowser, data);
@@ -178,7 +178,7 @@ module.exports = async function getHorario(data) {
         if (instanceBrowser != null) {
           await instanceBrowser.close();
         }
-        return false;
+        return {error: 500, content: "No se pudo obtener la informacion del horario..."};
       }
       await instanceBrowser.close();
       return horario;
@@ -188,5 +188,5 @@ module.exports = async function getHorario(data) {
   if (instanceBrowser != null) {
     await instanceBrowser.close();
   }
-  return false;
+  return {error: 500, content: "No se pudo hacer login. Error en credenciales."};
 };

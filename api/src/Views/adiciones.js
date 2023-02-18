@@ -28,6 +28,12 @@ module.exports = async function setAdiciones(data) {
           content:
             'function ocultar(){Ext.Msg.hide({title:"Notificación",buttons:Ext.Msg.OK,msg:"Para continuar con el Proceso, por favor selecccione el periodo académico."});$("#ext-gen55").click();$(".x-combo-selected").click();}',
         });
+
+        let materia = "METODOLOGIA DE LA INVESTIGACION II (2 Horarios)";
+        await frame.addScriptTag({
+          content:
+            'function getMateriaDelete(){return "'+materia+'";}',
+          });
         await frame.waitForSelector("#ext-gen432");
         const cityProcendence = await frame.evaluate(() => ocultar());
 
@@ -39,7 +45,26 @@ module.exports = async function setAdiciones(data) {
           }
         });
 
-        await frame.mouse.dragAndDrop();
+        
+        const action2 = await frame.evaluate(() => {
+          console.log("AQUI: " +getMateriaDelete());
+          let x = document.querySelectorAll('.x-grid-group-title .group-row-imagecommand-cell'), index = 0;
+          for (let xE of x) {
+            if(xE.innerHTML==getMateriaDelete()){
+              break;
+            }
+            index++;
+          }
+          x = document.querySelectorAll(".x-grid-group-title .icon-delete"), indexDos=0;
+          for (let xE of x) {
+            if(indexDos == index){
+              xE.click();
+              break;
+            }
+            indexDos++;
+          }
+        });
+
 
         //await instanceBrowser.close();
         return true;
