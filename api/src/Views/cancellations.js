@@ -4,14 +4,14 @@
  * @param {JSON} [data]
  * @returns {JSON} [DataLogin]
  */
-module.exports = async function setAdiciones(data) {
+module.exports = async function setCancelSubject(data) {
   const browser = require("../Utils/browser"),
     login = require("../Utils/login"),
     view = require("../Utils/view"),
     instanceBrowser = await browser.startBrowser();
 
   if (instanceBrowser == null) {
-    return false;
+    return {error: 503, content: "No se pudo instanciar conexion con chaira..."};
   }
 
   let page = await login(instanceBrowser, data);
@@ -38,15 +38,19 @@ module.exports = async function setAdiciones(data) {
         const cityProcendence = await frame.evaluate(() => ocultar());
 
         await frame.waitForSelector(".x-grid-group");
-        const action = await frame.evaluate(() => {
+        await frame.evaluate(() => {
           var x = document.querySelectorAll(".x-grid-group");
           for (let xE of x) {
             xE.classList.remove("x-grid-group-collapsed");
           }
         });
 
+        await frame.waitForSelector("#Texcancelacion");
+        await frame.type("#Texcancelacion", data.motivo);
+
+
         
-        const action2 = await frame.evaluate(() => {
+        await frame.evaluate(() => {
           console.log("AQUI: " +getMateriaDelete());
           let x = document.querySelectorAll('.x-grid-group-title .group-row-imagecommand-cell'), index = 0;
           for (let xE of x) {
@@ -65,21 +69,25 @@ module.exports = async function setAdiciones(data) {
           }
         });
 
+        const btn_cancel = await page.waitForSelector("#ext-gen424");
+        await btn_cancel.click();
 
-        //await instanceBrowser.close();
+        await instanceBrowser.close();
         return true;
       } catch (error) {
         console.log("Error -> " + error);
         if (instanceBrowser != null) {
-          //await instanceBrowser.close();
+          await instanceBrowser.close();
         }
-        return false;
+        return {error: 503, content: "No se pudo cancelar la materia..."};
       }
+    }else{
+      return {error: 502, content: "Error al cargar su peticion en el servidor."};
     }
   }
 
   if (instanceBrowser != null) {
-    //await instanceBrowser.close();
+    await instanceBrowser.close();
   }
   return false;
 };

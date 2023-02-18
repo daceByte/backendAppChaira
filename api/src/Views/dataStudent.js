@@ -5,7 +5,7 @@
  * @param {JSON} [data]
  * @returns {JSON} [Horario]
  */
-module.exports = async function getHorario(data) {
+module.exports = async function getDataStudent(data) {
   const browser = require("../Utils/browser"),
     login = require("../Utils/login"),
     view = require("../Utils/view"),

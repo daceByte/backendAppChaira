@@ -1,6 +1,5 @@
 module.exports = {
-  Horario: require("./src/Views/horario"),
-  Login: require("./src/Views/login"),
-  DataUser: require("./src/Views/dataUser"),
-  Adiciones: require("./src/Views/adiciones"),
+  schedule: require("./src/Views/schedule"),
+  dataStudent: require("./src/Views/dataStudent"),
+  cancellations: require("./src/Views/cancellations"),
 };

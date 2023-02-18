@@ -1,6 +1,6 @@
 module.exports = {
   start: require("./start"),
-  apiHorario: require("./ApiRoutes/horario"),
-  apiDataUser: require("./ApiRoutes/dataPersonal"),
-  apiIndex: require("./ApiRoutes/index"),
+  api: require("./ApiRoutes/index"),
+  apiSchedule: require("./ApiRoutes/schedule"),
+  apiDataStudent: require("./ApiRoutes/dataStudent"),
 };

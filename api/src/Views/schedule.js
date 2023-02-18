@@ -5,14 +5,14 @@
  * @param {JSON} [data]
  * @returns {JSON} [Horario]
  */
-module.exports = async function getHorario(data) {
+module.exports = async function getSchedule(data) {
   const browser = require("../Utils/browser"),
     login = require("../Utils/login"),
     view = require("../Utils/view"),
     instanceBrowser = await browser.startBrowser();
 
   if (instanceBrowser == null) {
-    return {error: 503, content: "El titiritero no esta disponible, intente de nuevo..."};
+    return {error: 503, content: "No se pudo instanciar conexion con chaira..."};
   }
 
   let page = await login(instanceBrowser, data);
@@ -182,6 +182,8 @@ module.exports = async function getHorario(data) {
       }
       await instanceBrowser.close();
       return horario;
+    }else{
+      return {error: 502, content: "Error al cargar su peticion en el servidor."};
     }
   }
 
