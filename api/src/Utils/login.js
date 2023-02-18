@@ -19,6 +19,9 @@ module.exports = async function sendLogin(browser, data) {
     await page.waitForNavigation();
   } catch (error) {
     console.log("Error -> " + error);
+    if (browser != null) {
+      await instanceBrowser.close();
+    }
     return false;
   }
   return page;

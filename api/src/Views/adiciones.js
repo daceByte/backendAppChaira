@@ -7,6 +7,7 @@
 module.exports = async function setAdiciones(data) {
   const browser = require("../Utils/browser"),
     login = require("../Utils/login"),
+    view = require("../Utils/view"),
     instanceBrowser = await browser.startBrowser();
 
   if (instanceBrowser == null) {
@@ -20,16 +21,17 @@ module.exports = async function setAdiciones(data) {
       try {
         const iframe = await page.waitForSelector("#Window3886_512_IFrame");
         const frame = await iframe.contentFrame();
-        let btn_ingresar = await frame.waitForSelector("#ext-gen422");
-        await btn_ingresar.click();
-        btn_ingresar = await frame.waitForSelector("#ext-gen55");
-        await btn_ingresar.click();
-        btn_ingresar = await frame.waitForSelector(".x-combo-selected");
-        await btn_ingresar.click();
-        const texto = await frame.evaluate(
-          () => document.querySelector("#ext-gen114").innerHTML
-        );
+        await frame.addScriptTag({
+          url: "https://code.jquery.com/jquery-3.2.1.min.js",
+        });
+        await frame.addScriptTag({
+          content:
+            'function ocultar(){Ext.Msg.hide({title:"Notificación",buttons:Ext.Msg.OK,msg:"Para continuar con el Proceso, por favor selecccione el periodo académico."});$("#ext-gen55").click();$(".x-combo-selected").click();}',
+        });
+        await frame.waitForSelector("#ext-gen432");
+        const cityProcendence = await frame.evaluate(() => ocultar());
 
+        await frame.waitForSelector(".x-grid-group");
         const action = await frame.evaluate(() => {
           var x = document.querySelectorAll(".x-grid-group");
           for (let xE of x) {
@@ -37,8 +39,10 @@ module.exports = async function setAdiciones(data) {
           }
         });
 
+        await frame.mouse.dragAndDrop();
+
         //await instanceBrowser.close();
-        return texto;
+        return true;
       } catch (error) {
         console.log("Error -> " + error);
         if (instanceBrowser != null) {

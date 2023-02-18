@@ -42,6 +42,28 @@ module.exports = async function getView(page, idPage) {
         return false;
       }
       return true;
+      case 4: //Matricula
+      try {
+        await page.addScriptTag({
+          content:
+            "DynamicWindow(Desktop1,'Window3598_8192','/Chaira/View/Private/Matricula/MatriculaAntiguo.aspx','Matrícula','650','650');",
+        });
+      } catch (error) {
+        console.log("Error -> " + error);
+        return false;
+      }
+      return true;
+      case 5: //Pensum
+      try {
+        await page.addScriptTag({
+          content:
+            "DynamicWindow(Desktop1,'Window3598_8192','/Chaira/View/Private/Matricula/MatriculaAntiguo.aspx','Matrícula','650','650');",
+        });
+      } catch (error) {
+        console.log("Error -> " + error);
+        return false;
+      }
+      return true;
     default:
       return false;
   }
