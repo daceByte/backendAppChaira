@@ -5,20 +5,26 @@
  * @param {JSON} [data]
  * @returns {JSON} [Horario]
  */
-module.exports = async function getDataStudent(data) {
-  const browser = require("../Utils/browser"),
-    login = require("../Utils/login"),
-    view = require("../Utils/view"),
-    instanceBrowser = await browser.startBrowser();
+module.exports = async function (data) {
+  const {
+    getPuppeteer,
+    closePuppeteer,
+    setLogin,
+    setView,
+  } = require("../util/index");
+  const browser = await getPuppeteer();
 
-  if (instanceBrowser == null) {
-    return false;
+  if (!browser) {
+    return {
+      error: 503,
+      content: "No se pudo instanciar conexion con chaira...",
+    };
   }
 
-  let page = await login(instanceBrowser, data);
+  let page = await setLogin(browser, data);
 
-  if (page != false) {
-    if ((await view(page, 2)) == true) {
+  if (!page) {
+    if (await setView(page, 2)) {
       try {
         const iframe = await page.waitForSelector("#Window10120_1024_IFrame");
         const frame = await iframe.contentFrame();
@@ -67,7 +73,7 @@ module.exports = async function getDataStudent(data) {
           () => document.querySelector("#CBTipoSanguineo-inputEl").value
         );
 
-        await instanceBrowser.close();
+        await closePuppeteer(browser);
 
         return {
           tipoDocumento: typeDcm,
@@ -89,17 +95,19 @@ module.exports = async function getDataStudent(data) {
           tipoSangre: blood,
         };
       } catch (error) {
-        console.log("Error -> " + error);
-        if (instanceBrowser != null) {
-          await instanceBrowser.close();
-        }
-        return false;
+        console.log("Error de dataStudent -> " + error);
+        await closePuppeteer(browser);
+        return {
+          error: 500,
+          content: "Ocurrio un error interno en la api del servidor...",
+        };
       }
     }
   }
 
-  if (instanceBrowser != null) {
-    await instanceBrowser.close();
-  }
-  return false;
+  await closePuppeteer(browser);
+  return {
+    error: 401,
+    content: "No se pudo hacer login, Error en credenciales.",
+  };
 };

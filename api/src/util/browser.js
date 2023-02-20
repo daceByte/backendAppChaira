@@ -1,12 +1,11 @@
-const puppeteer = require("puppeteer");
-
 /**
  * Enciende el titiritero para iniciar las acciones.
  * en caso de fallar retorna false.
  *
  * @returns {puppeteer}
  */
-async function startBrowser() {
+module.exports = async function () {
+  const puppeteer = require("puppeteer");
   let browser;
   try {
     console.log("Abriendo el navegador......");
@@ -18,13 +17,4 @@ async function startBrowser() {
     return false;
   }
   return browser;
-}
-
-async function closeBrowser() {
-  await browser.close();
-}
-
-module.exports = {
-  startBrowser,
-  closeBrowser,
 };

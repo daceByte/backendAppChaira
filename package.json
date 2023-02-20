@@ -1,6 +1,6 @@
 {
   "name": "backendAppChaira",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "![AppChaira Banner](https://th.bing.com/th/id/R.2ce4db6c72078e799676533106d2e7ec?rik=vozNTJI1o%2fS%2bdA&pid=ImgRaw&r=0)",
   "main": "index.js",
   "scripts": {

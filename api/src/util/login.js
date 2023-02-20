@@ -6,7 +6,7 @@
  * @param {puppeteer} [browser]
  * @returns {page}[Pagina]
  */
-module.exports = async function sendLogin(browser, data) {
+module.exports = async function (browser, data) {
   let page;
   try {
     page = await browser.newPage();
@@ -18,10 +18,7 @@ module.exports = async function sendLogin(browser, data) {
     await btn_ingresar.click();
     await page.waitForNavigation();
   } catch (error) {
-    console.log("Error -> " + error);
-    if (browser != null) {
-      await browser.close();
-    }
+    console.log("Error Login -> " + error);
     return false;
   }
   return page;
