@@ -23,8 +23,9 @@ module.exports = async function (data) {
 
   let page = await setLogin(browser, data);
 
-  if (!page) {
-    if (await setView(page, 2)) {
+  if (page != false) {
+    if ((await setView(page, 2)) != false) {
+      console.log("Aqui");
       try {
         const iframe = await page.waitForSelector("#Window10120_1024_IFrame");
         const frame = await iframe.contentFrame();
