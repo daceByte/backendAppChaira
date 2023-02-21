@@ -37,7 +37,7 @@ module.exports = async function (data) {
 
         await frame.addScriptTag({
           content:
-            'function getMateriaDelete(){return "' + data.materia + '";}',
+            'function getMateriaDelete(){return "' + data.subject + '";}',
         });
         await frame.waitForSelector("#ext-gen432");
         const cityProcendence = await frame.evaluate(() => ocultar());
@@ -51,7 +51,7 @@ module.exports = async function (data) {
         });
 
         await frame.waitForSelector("#Texcancelacion");
-        await frame.type("#Texcancelacion", data.motivo);
+        await frame.type("#Texcancelacion", data.reason);
 
         await frame.evaluate(() => {
           console.log("AQUI: " + getMateriaDelete());
@@ -83,7 +83,7 @@ module.exports = async function (data) {
         return {
           response: true,
           content:
-            "Se cancelo la materia " + data.materia + " correctamente...",
+            "Se cancelo la materia " + data.subject + " correctamente...",
         };
       } catch (error) {
         console.log("Error en cancellations -> " + error);

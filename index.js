@@ -1,7 +1,7 @@
 const path = require("path"),
   express = require("express"),
   app = express(),
-  { start, api, apiSchedule, apiDataStudent } = require("./routes");
+  { start, api, apiSchedule, apiDataStudent, apiSubjects } = require("./routes");
 
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
@@ -11,6 +11,7 @@ app.use(express.json());
 app.use("/", start);
 app.use("/Api", api);
 app.use("/Api/Horario", apiSchedule);
+app.use("/Api/Materias", apiSubjects);
 app.use("/Api/Login", apiDataStudent);
 
 app.use(function (req, res) {
