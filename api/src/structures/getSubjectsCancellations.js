@@ -11,7 +11,7 @@ module.exports = async function (data) {
     setLogin,
     setView,
   } = require("../util/index");
-  const { extractSubjectsCancellations } = require("../extractor/index");
+  const { extractSubjectsCancellations } = require("../extractors/index");
   const browser = await getPuppeteer();
 
   if (!browser) {

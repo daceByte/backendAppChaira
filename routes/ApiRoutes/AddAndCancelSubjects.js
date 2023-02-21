@@ -3,7 +3,7 @@ const router = express.Router();
 const { getSubjectsCancellations, cancellations } = require("../../api/index");
 
 router.post("/", async function (req, res, next) {
-  const { user, pass } = req.body;
+  const { user, pass, action, materia, motivo } = req.body;
   let data = "";
   if (user != undefined && pass != undefined && action != undefined) {
     if (action == "get" || action == "GET") {
