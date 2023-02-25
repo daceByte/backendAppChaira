@@ -12,7 +12,7 @@ module.exports = async function (data) {
     setLogin,
     setView,
   } = require("../util/index");
-  const { extractSchedule } = require("../extractor/index");
+  const { extractSchedule } = require("../extractors/index");
   const browser = await getPuppeteer();
   let horario = [];
 
@@ -26,7 +26,7 @@ module.exports = async function (data) {
   let page = await setLogin(browser, data);
 
   if (page != false) {
-    if ((await view(page, 1)) != false) {
+    if ((await setView(page, 1)) != false) {
       try {
         const iframe = await page.waitForSelector("#Window651_4096_IFrame");
         const frame = await iframe.contentFrame();
