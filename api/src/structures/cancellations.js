@@ -99,5 +99,8 @@ module.exports = async function (data) {
   }
 
   await closePuppeteer(browser);
-  return false;
+  return {
+    error: 401,
+    content: "No se pudo hacer login, Error en credenciales.",
+  };
 };

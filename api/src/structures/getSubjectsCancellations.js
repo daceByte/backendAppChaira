@@ -24,7 +24,7 @@ module.exports = async function (data) {
   let page = await setLogin(browser, data);
 
   if (page != false) {
-    if ((await view(page, 3)) != false) {
+    if ((await setView(page, 3)) != false) {
       try {
         const iframe = await page.waitForSelector("#Window3886_512_IFrame");
         const frame = await iframe.contentFrame();
@@ -40,11 +40,13 @@ module.exports = async function (data) {
         const texto = await frame.evaluate(
           () => document.querySelector("#ext-gen95").innerHTML
         );
+        console.log(texto);
+        const subjects = extractSubjectsCancellations(texto);
 
         await closePuppeteer(browser);
         return {
           response: true,
-          content: extractSubjectsCancellations(texto),
+          content: subjects,
         };
       } catch (error) {
         console.log("Error en getCancellations -> " + error);
@@ -60,5 +62,8 @@ module.exports = async function (data) {
   }
 
   await closePuppeteer(browser);
-  return false;
+  return {
+    error: 401,
+    content: "No se pudo hacer login, Error en credenciales.",
+  };
 };
