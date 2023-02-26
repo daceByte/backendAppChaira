@@ -17,7 +17,7 @@ module.exports = async function (data) {
   if (!browser) {
     return {
       error: 503,
-      content: "No se pudo instanciar conexion con chaira...",
+      content: "No se pudo conectar con el servidor de chaira...",
     };
   }
 
@@ -25,7 +25,6 @@ module.exports = async function (data) {
 
   if (page != false) {
     if ((await setView(page, 2)) != false) {
-      console.log("Aqui");
       try {
         const iframe = await page.waitForSelector("#Window10120_1024_IFrame");
         const frame = await iframe.contentFrame();
@@ -100,7 +99,7 @@ module.exports = async function (data) {
         await closePuppeteer(browser);
         return {
           error: 500,
-          content: "Ocurrio un error interno en la api del servidor...",
+          content: "Ocurrio un error interno...", //error de nuestra api
         };
       }
     }
