@@ -34,7 +34,11 @@ module.exports = async function (data) {
         const texto = await frame.evaluate(
           () => document.querySelector("#GridHorario").innerHTML
         );
-        horario = extractSchedule(texto);
+        await frame.waitForSelector("#programa");
+        const program = await frame.evaluate(
+          () => document.querySelector("#programa").innerHTML
+        );
+        horario = extractSchedule(texto, program);
       } catch (error) {
         console.log("Error horario estructura -> " + error);
         await closePuppeteer(browser);

@@ -5,7 +5,7 @@
  * @param {String} [html]
  * @returns {JSON} [Horario]
  */
-module.exports = function (texto) {
+module.exports = function (texto, program) {
   if (texto == "" || texto == null) {
     return {
       error: 500,
@@ -140,6 +140,7 @@ module.exports = function (texto) {
         viernes: viernes,
         sabado: sabado,
         domingo: domingo,
+        program: program,
       });
       materia = "";
       lunes = "";
