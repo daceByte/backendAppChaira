@@ -3,4 +3,5 @@ module.exports = {
   dataStudent: require("./src/structures/dataStudent"),
   cancellations: require("./src/structures/cancellations"),
   getSubjectsCancellations: require("./src/structures/getSubjectsCancellations"),
+  registerExtend: require('./src/structures/registerExtend'),
 };

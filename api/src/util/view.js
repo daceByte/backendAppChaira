@@ -64,6 +64,17 @@ module.exports = async function (page, idPage) {
         return false;
       }
       return true;
+    case 6: //Registro extendido
+      try {
+        await page.addScriptTag({
+          content:
+            "DynamicWindow(Desktop1,'Window3530_8388608','/Chaira/View/Private/Academico/Notas/Registroextendido.aspx','Registro Extendido','650','650');",
+        });
+      } catch (error) {
+        console.log("Error Vista -> " + error);
+        return false;
+      }
+      return true;
     default:
       return false;
   }

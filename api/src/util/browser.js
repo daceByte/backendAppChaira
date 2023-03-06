@@ -10,7 +10,7 @@ module.exports = async function () {
   try {
     console.log("Abriendo el navegador......");
     browser = await puppeteer.launch({
-      headless: true,
+      headless: false,
     });
   } catch (err) {
     console.log("No se pudo crear una instancia de navegador => : ", err);
