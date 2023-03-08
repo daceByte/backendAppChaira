@@ -10,7 +10,9 @@ module.exports = async function () {
   try {
     console.log("Abriendo el navegador......");
     browser = await puppeteer.launch({
-      headless: false,
+      executablePath: "/usr/bin/chromium-browser",
+      args: ["--no-sandbox"],
+      headless: true,
     });
   } catch (err) {
     console.log("No se pudo crear una instancia de navegador => : ", err);
